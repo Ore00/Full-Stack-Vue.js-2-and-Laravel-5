@@ -4,6 +4,8 @@ var app = new Vue({
         title: sample.title,
         address: sample.address,
         about: sample.about,
+        amenities: sample.amenities,
+        prices: sample.prices,
         headerImageStyle: {   'background-image': 'url(sample/header.jpg)' }
     }
    
