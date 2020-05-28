@@ -22,8 +22,8 @@ var app = new Vue({
     }, 
     methods: {
         escapeKeyListener: function(evt) {
-            if(evt.keyCode === 27 && app.modalOpen) {
-                app.modalOpen = false;
+            if(evt.keyCode === 27 && this.modalOpen) {
+                this.modalOpen = false;
             }
         }
     },
