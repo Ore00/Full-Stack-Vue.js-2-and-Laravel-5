@@ -20,14 +20,15 @@ var app = new Vue({
             }
         }
     }, 
-    created: 
-        function(){  document.addEventListener('keyup', escapeKeyListener);}
-  
-   
-});
-
-function escapeKeyListener(evt) {
-    if(evt.keyCode === 27 && app.modalOpen) {
-        app.modalOpen = false;
+    methods: {
+        escapeKeyListener: function(evt) {
+            if(evt.keyCode === 27 && app.modalOpen) {
+                app.modalOpen = false;
+            }
+        }
+    },
+    created:  function(){  
+        document.addEventListener('keyup', this.escapeKeyListener);
     }
-}
+  
+});
