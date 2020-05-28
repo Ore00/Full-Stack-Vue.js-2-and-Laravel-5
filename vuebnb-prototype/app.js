@@ -19,6 +19,15 @@ var app = new Vue({
                 document.body.classList.remove(className);
             }
         }
-    }
+    }, 
+    created: 
+        function(){  document.addEventListener('keyup', escapeKeyListener);}
+  
    
 });
+
+function escapeKeyListener(evt) {
+    if(evt.keyCode === 27 && app.modalOpen) {
+        app.modalOpen = false;
+    }
+}
