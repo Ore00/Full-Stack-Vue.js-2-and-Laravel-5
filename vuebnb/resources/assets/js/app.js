@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import sample from './data';
 
 var app = new Vue({
@@ -8,7 +9,7 @@ var app = new Vue({
         about: sample.about,
         amenities: sample.amenities,
         prices: sample.prices,
-        headerImageStyle: {   'background-image': 'url(sample/header.jpg)' },
+        headerImageStyle: {   'background-image': 'url(images/header.jpg)' },
         contracted: true, 
         modalOpen: false
     },
