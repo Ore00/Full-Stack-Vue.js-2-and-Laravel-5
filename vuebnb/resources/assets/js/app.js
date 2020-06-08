@@ -1,40 +1,43 @@
+import "core-js/fn/object/assign";
 import Vue from 'vue';
-import sample from './data';
+import { populateAmenitiesAndPrices } from './helpers';
 
+let model = JSON.parse(window.vuebnb_listing_model);
+model = populateAmenitiesAndPrices(model);
+window.model = model;
 var app = new Vue({
-    el: '#app',
-    data: {
-        title: sample.title,
-        address: sample.address,
-        about: sample.about,
-        amenities: sample.amenities,
-        prices: sample.prices,
-        headerImageStyle: {   'background-image': 'url(images/header.jpg)' },
-        contracted: true, 
-        modalOpen: false
+  el: '#app',
+  data: Object.assign(model, {
+    headerImageStyle: {
+      'background-image': `url(${model.images[0]})`
     },
-    watch: {
-        modalOpen: function(){
-            var className = 'modal-open'
-            if(this.modalOpen){
-                document.body.classList.add(className);
-            }else{
-                document.body.classList.remove(className);
-            }
-        }
-    }, 
-    methods: {
-        escapeKeyListener: function(evt) {
-            if(evt.keyCode === 27 && this.modalOpen) {
-                this.modalOpen = false;
-            }
-        }
-    },
-    created:  function(){  
-        document.addEventListener('keyup', this.escapeKeyListener);
-    },
-    destroyed: function(){
-        document.removeEventListener('keyup', this.escapeKeyListener);
+    contracted: true,
+    modalOpen: false
+  }),
+  methods: {
+    escapeKeyListener(evt) {
+      if (evt.keyCode === 27 && this.modalOpen) {
+        this.modalOpen = false;
+      }
     }
-  
+  },
+  watch: {
+    modalOpen() {
+      var className = 'modal-open';
+      if (this.modalOpen) {
+        document.body.classList.add(className);
+      } else {
+        document.body.classList.remove(className);
+      }
+    }
+  },
+  created() {
+    document.addEventListener('keyup', this.escapeKeyListener);
+  },
+  destroyed() {
+    document.removeEventListener('keyup', this.escapeKeyListener);
+  }
 });
+
+console.log("dump the window model: ");
+console.log(window.model);
