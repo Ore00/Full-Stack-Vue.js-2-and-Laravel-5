@@ -17,11 +17,7 @@
   <h1>vuebnb</h1>
 </div>
 <div id="app">
-  <div class="header">
-    <div class="header-img" v-bind:style="headerImageStyle" v-on:click="modalOpen = true">
-      <button class="view-photos">View Photos</button>
-    </div>
-  </div>
+  <header-image :image-url="images[0]" @header-clicked="openModal"></header-image>
   <div class="container">
     <div class="heading">
       <h1>@{{ title }}</h1>
@@ -34,35 +30,23 @@
       <button v-if="contracted" class="more" v-on:click="contracted = false">+ More</button>
     </div>
     <div class="lists">
-      <hr>
-      <div class="amenities list">
-        <div class="title"><strong>Amenities</strong></div>
-        <div class="content">
-          <div class="list-item" v-for="amenity in amenities">
-            <i class="fa fa-lg" v-bind:class="amenity.icon"></i>
+      <feature-list title="Amenities" :items="amenities">
+          <template slot-scope="amenity">
+            <i class="fa fa-lg" :class="amenity.icon"></i>
             <span>@{{ amenity.title }}</span>
-          </div>
-        </div>
-      </div>
-      <hr>
-      <div class="prices list">
-        <div class="title">
-          <strong>Prices</strong>
-        </div>
-        <div class="content">
-          <div class="list-item" v-for="price in prices">
+          </template>
+      </feature-list>
+     
+      <feature-list title="Prices" :items="prices">
+          <template slot-scope="price">
             @{{ price.title }}: <strong> @{{ price.value }} </strong>
-          </div>
-        </div>
-      </div>
+          </template>
+      </feature-list>
     </div>
   </div>
-  <div id="modal" v-bind:class="{ show : modalOpen }">
-    <button v-on:click="modalOpen = false" class="modal-close">&times;</button>
-    <div class="modal-content">
-      <image-carousel :images="images"></image-carousel>
-    </div>
-  </div>
+  <modal-window ref="imagemodal">
+    <image-carousel :images="images"></image-carousel>
+  </modal-window>
 </div>
 <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 </body>

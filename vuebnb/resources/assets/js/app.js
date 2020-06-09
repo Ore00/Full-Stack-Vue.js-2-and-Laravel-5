@@ -5,6 +5,9 @@ import { populateAmenitiesAndPrices } from './helpers';
 let model = JSON.parse(window.vuebnb_listing_model);
 model = populateAmenitiesAndPrices(model);
 import ImageCarousel from '../components/ImageCarousel.vue';
+import ModalWindow from '../components/ModalWindow.vue';
+import HeaderImage from '../components/HeaderImage.vue';
+import FeatureList from '../components/FeatureList.vue';
 var app = new Vue({
   el: '#app',
   data: Object.assign(model, {
@@ -14,30 +17,15 @@ var app = new Vue({
     contracted: true,
     modalOpen: false
   }),
-  methods: {
-    escapeKeyListener(evt) {
-      if (evt.keyCode === 27 && this.modalOpen) {
-        this.modalOpen = false;
-      }
-    }
-  },
-  watch: {
-    modalOpen() {
-      var className = 'modal-open';
-      if (this.modalOpen) {
-        document.body.classList.add(className);
-      } else {
-        document.body.classList.remove(className);
-      }
-    }
-  },
-  created() {
-    document.addEventListener('keyup', this.escapeKeyListener);
-  },
-  destroyed() {
-    document.removeEventListener('keyup', this.escapeKeyListener);
-  },
   components: {
-    ImageCarousel
+    ImageCarousel,
+    ModalWindow,
+    HeaderImage,
+    FeatureList
+  },
+  methods:{
+    openModal(){
+      this.$refs.imagemodal.modalOpen = true;
+    }
   }
 });
