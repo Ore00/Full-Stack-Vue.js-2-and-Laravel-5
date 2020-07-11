@@ -1,6 +1,6 @@
 <template>
     <div>
-        <header-image :image-url="images[0]" @header-clicked="openModal"></header-image>
+        <header-image v-if="images[0]" :image-url="images[0]" @header-clicked="openModal"></header-image>
   <div class="container">
     <div class="heading">
       <h1>@{{ title }}</h1>
@@ -32,6 +32,8 @@
     </div>
 </template>
 <script>
+
+import routeMixin from '../js/route-mixin';
 import { populateAmenitiesAndPrices } from '../js/helpers';
 
 import ImageCarousel from './ImageCarousel.vue';
@@ -39,10 +41,9 @@ import ModalWindow from './ModalWindow.vue';
 import HeaderImage from './HeaderImage.vue';
 import FeatureList from './FeatureList.vue';
 import ExpandableText from './ExpandableText.vue';
-import routeMixin from '../js/route-mixin';
 
 export default {
-  mixins: [routeMixin ],
+  mixins: [ routeMixin ],
     data() {  
       return {
         title: null,
