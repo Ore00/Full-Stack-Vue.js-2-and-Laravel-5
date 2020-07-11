@@ -7,7 +7,7 @@ use App\Listing;
 
 class ListingController extends Controller
 {   
-    public function get_home_web()
+    private function get_listing_summaries()
     {
         $collection = Listing::all([
             'id', 'address', 'title','price_per_night'
@@ -18,7 +18,16 @@ class ListingController extends Controller
             );
             return $listing;
         });
-        $data = collect(['listings' => $collection->toArray()]);
+        return collect(['listings' => $collection->toArray()]);
+    }
+    private function add_meta_data($collection, $request)
+    {
+        return $collection->merge(['path' => $request->getPathInfo()]);
+    }
+    public function get_home_web(Request $request)
+    {
+        $data = $this->get_listing_summaries();
+        $data = $this->add_meta_data($data, $request);
         return view('app', ['data' => $data]);
     }
     private function get_listing($listing)
@@ -29,15 +38,21 @@ class ListingController extends Controller
         }
         return collect(['listing' => $model]);
     }
+    public function get_home_api()
+    {
+        $data = $this->get_listing_summaries();
+        return response()->json($data);
+    }
+
+    public function get_listing_web(Listing $listing, Request $request)
+    {
+        $data = $this->get_listing($listing);
+        $data = $this->add_meta_data($data, $request);
+        return view('app', ['data' => $data]);
+    }
     public function get_listing_api(Listing $listing)
     {
         $data = $this->get_listing($listing);
         return response()->json($data);
-    }
-
-    public function get_listing_web(Listing $listing)
-    {
-        $data = $this->get_listing($listing);
-        return view('app', ['data' => $data]);
     }
 }
