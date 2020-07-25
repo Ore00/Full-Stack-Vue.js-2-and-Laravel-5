@@ -6,8 +6,17 @@
             <h1>vuebnb</h1>
         </router-link>
         <router-view></router-view>
+        <customer-footer></customer-footer>
     </div>
 </template>
+<script>
+  import CustomerFooter from './CustomFooter.vue';
+  export default {
+    components: {
+      CustomerFooter
+    }
+  }
+</script>
 <style>
     
 #toolbar {
