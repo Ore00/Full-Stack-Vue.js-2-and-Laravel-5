@@ -3,8 +3,16 @@
         <h1>Places in {{ country }}</h1>
         <div class="listing-carousel">
             <div class="controls">
-                <carousel-control dir="left" @change-image="change"></carousel-control>
-                <carousel-control dir="right" @change-image="change"></carousel-control>
+                <carousel-control 
+                    dir="left" 
+                    @change-image="change"
+                    :style="leftArrowStyle"
+                ></carousel-control>
+                <carousel-control 
+                    dir="right" 
+                    @change-image="change"
+                    :style="rightArrowStyle"
+                ></carousel-control>
             </div>
             <div class="listing-summaries-wrapper">
                 <div class="listing-summaries" :style="style">
@@ -47,6 +55,15 @@ const listingSummaryWidth = 365;
         computed: {
             style(){
                 return { transform: `translateX(${this.offset * -listingSummaryWidth}px)`}
+            },
+            leftArrowStyle(){
+                return { visibility: (this.offset > 0 ? 'visible' : 'hidden' )}
+            },
+            rightArrowStyle(){
+                return {
+                    visibility: ( this.offset < this.listings.length - rowSize) ?
+                    'visible' : 'hidden'
+                }
             }
         },
     }
@@ -59,6 +76,7 @@ const listingSummaryWidth = 365;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        transition: transform 0.5s;
     }
     .listing-summaries > .listing-summary {
         margin-right: 15px;
