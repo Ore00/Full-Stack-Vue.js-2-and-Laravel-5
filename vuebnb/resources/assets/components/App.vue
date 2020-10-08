@@ -1,18 +1,19 @@
 <template>
     <div>
-     <div id="toolbar">
-        <router-link :to="{name: 'home'}">
-            <img class="icon" src="/images/logo.png">
-            <h1>vuebnb</h1>
-        </router-link>
-        <ul class="links">
-          <li>
-            <router-link :to="{ name: 'saved' }">
-              Saved
+        <div id="toolbar">
+            <router-link :to="{name: 'home'}">
+                <img class="icon" src="/images/logo.png">
+                <h1>vuebnb</h1>
             </router-link>
-          </li>
-        </ul>
-       </div> 
+            <ul class="links">
+            <li>
+                <router-link :to="{ name: 'saved' }">
+                Saved
+                </router-link>
+            </li>
+            </ul>
+        </div> 
+        
         <router-view></router-view>
         <customer-footer></customer-footer>
     </div>
