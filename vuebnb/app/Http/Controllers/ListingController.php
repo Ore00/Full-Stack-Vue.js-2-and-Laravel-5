@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Listing;
+use Illuminate\Support\Facades\Auth;
 
 class ListingController extends Controller
 {   
@@ -20,9 +21,13 @@ class ListingController extends Controller
         });
         return collect(['listings' => $collection->toArray()]);
     }
+    
     private function add_meta_data($collection, $request)
     {
-        return $collection->merge(['path' => $request->getPathInfo()]);
+        return $collection->merge([
+            'path' => $request->getPathInfo(),
+            'auth' => Auth::check()
+        ]);
     }
     public function get_home_web(Request $request)
     {
